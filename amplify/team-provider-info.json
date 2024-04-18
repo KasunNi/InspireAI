@@ -10,6 +10,11 @@
       "StackName": "amplify-inspireai-dev-84c67",
       "StackId": "arn:aws:cloudformation:us-east-2:436302720085:stack/amplify-inspireai-dev-84c67/50d51160-fd61-11ee-878f-026d6887bb6b",
       "AmplifyAppId": "dw51o3pfingmk"
+    },
+    "categories": {
+      "auth": {
+        "inspireaie3ffd3a8": {}
+      }
     }
   }
 }
