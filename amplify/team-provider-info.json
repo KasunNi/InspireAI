@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-inspireai-dev-84c67-authRole",
+      "UnauthRoleArn": "arn:aws:iam::436302720085:role/amplify-inspireai-dev-84c67-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::436302720085:role/amplify-inspireai-dev-84c67-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-inspireai-dev-84c67-deployment",
+      "UnauthRoleName": "amplify-inspireai-dev-84c67-unauthRole",
+      "StackName": "amplify-inspireai-dev-84c67",
+      "StackId": "arn:aws:cloudformation:us-east-2:436302720085:stack/amplify-inspireai-dev-84c67/50d51160-fd61-11ee-878f-026d6887bb6b",
+      "AmplifyAppId": "dw51o3pfingmk"
+    }
+  }
+}
