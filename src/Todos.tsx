@@ -6,10 +6,12 @@ import { createTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
 import { type CreateTodoInput, type Todo } from "./API";
 
-import { withAuthenticator, Button, Heading, Breadcrumbs } from "@aws-amplify/ui-react";
+import { withAuthenticator, Button, Heading, Breadcrumbs, Card, Grid, Flex, ThemeProvider, View, Image, Text, createTheme, useTheme, Table, TableBody, TableCell, TableHead, TableRow } from "@aws-amplify/ui-react";
 import { type AuthUser } from "aws-amplify/auth";
 import { type UseAuthenticator } from "@aws-amplify/ui-react-core";
 import "@aws-amplify/ui-react/styles.css";
+
+import cover from './assets/cover.jpg';
 
 const initialState: CreateTodoInput = { name: "", description: "" };
 const client = generateClient();
@@ -18,6 +20,26 @@ type AppProps = {
   signOut?: UseAuthenticator["signOut"]; //() => void;
   user?: AuthUser;
 };
+
+const theme = createTheme({
+    name: 'breadcrumbs-theme',
+    tokens: {
+      components: {
+        breadcrumbs: {
+          separator: {
+            color: '{colors.secondary.20}',
+            fontSize: '{fontSizes.xl}',
+            paddingInline: '{space.medium}',
+          },
+          link: {
+            current: {
+              color: '{colors.secondary.80}',
+            },
+          },
+        },
+      },
+    },
+  });
 
 const Todos: React.FC<AppProps> = ({ signOut, user }) => {
   const [formState, setFormState] = useState<CreateTodoInput>(initialState);
@@ -56,12 +78,33 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
     }
   }
 
+  const { tokens } = useTheme();
+
   return (
     <div style={styles.container}>
-      <Heading level={1}>Hello {user?.username}</Heading>
-      <Button onClick={signOut}>Sign out</Button>
+     
 
-      <Breadcrumbs
+
+
+
+
+
+
+
+
+<Grid
+  columnGap="0.5rem"
+  rowGap="0.5rem"
+  templateColumns="1fr 1fr 1fr"
+  
+>
+  <Card
+    columnStart="1"
+    columnEnd="-1"
+    textAlign={"right"}
+  >
+    <ThemeProvider theme={theme}>
+    <Breadcrumbs
       items={[
         {
           href: '/',
@@ -72,12 +115,109 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
           label: 'Todos',
         },
         {
-          label: 'Breadcrumbs',
+          label: '',
         },
       ]}
+      separator={<Breadcrumbs.Separator>|</Breadcrumbs.Separator>}
     />
-      
-      <h2>Amplify Todos</h2>
+    </ThemeProvider>
+  </Card>
+  <Card
+    columnStart="1"
+    columnEnd="-1"
+    textAlign={"right"}
+  >
+  
+  </Card>
+  <Card
+    columnStart="1"
+    columnEnd="2"
+  >
+    <Heading level={1} color={"purple.60"}>Todos of InspireAI</Heading>
+      {/*<h2>Welcome to InspireAI</h2>*/}
+
+      <View
+      backgroundColor={tokens.colors.background.secondary}
+      padding={tokens.space.medium}
+    >
+      <Card>
+        <Flex direction="row" alignItems="flex-start">
+          <Image
+            alt="Road to milford sound"
+            src={cover}
+            width="33%"
+          />
+          <Flex
+            direction="column"
+            alignItems="flex-start"
+            gap={tokens.space.xs}
+          >
+            {/*<Flex>
+              <Badge size="small" variation="info">
+                Plus
+              </Badge>
+              <Badge size="small" variation="success">
+                Verified
+              </Badge>
+            </Flex>*/}
+
+            <Heading level={5}>
+              Inspirational Quotes
+            </Heading>
+
+            <Text as="span">
+              Join with us to view Inspirational Quotes.
+            </Text>
+            <Button variation="primary">View Now</Button>
+          </Flex>
+        </Flex>
+      </Card>
+      </View>
+
+
+      <View
+      backgroundColor={tokens.colors.background.secondary}
+      padding={tokens.space.medium}
+    >
+      <Card>
+        <Flex direction="row" alignItems="flex-start">
+          <Image
+            alt="Road to milford sound"
+            src={cover}
+            width="33%"
+          />
+          <Flex
+            direction="column"
+            alignItems="flex-start"
+            gap={tokens.space.xs}
+          >
+            {/*<Flex>
+              <Badge size="small" variation="info">
+                Plus
+              </Badge>
+              <Badge size="small" variation="success">
+                Verified
+              </Badge>
+            </Flex>*/}
+
+            <Heading level={5}>
+              Profile
+            </Heading>
+
+            <Text as="span">
+              Keep update your profile to recieving the ideal Quotes as you need.
+            </Text>
+            <Button variation="primary">See My profile</Button>
+          </Flex>
+        </Flex>
+      </Card>
+      </View>
+  </Card>
+  <Card
+    columnStart="2"
+    columnEnd="-1"
+  >
+     <h2>Amplify Todos</h2>
       <input
         onChange={(event) =>
           setFormState({ ...formState, name: event.target.value })
@@ -85,7 +225,7 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
         style={styles.input}
         value={formState.name}
         placeholder="Name"
-      />
+      /><br></br>
       <input
         onChange={(event) =>
           setFormState({ ...formState, description: event.target.value })
@@ -93,23 +233,51 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
         style={styles.input}
         value={formState.description as string}
         placeholder="Description"
-      />
-      <button style={styles.button} onClick={addTodo}>
-        Create Todo
-      </button>
+      /><br></br>
+      
+      <Button variation="primary" onClick={addTodo}>Create Todo</Button>
+
+      <h2>All Todos</h2>
+
+<Table
+  caption=""
+  highlightOnHover={false}>
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Name</TableCell>
+      <TableCell as="th">Description</TableCell>
+      <TableCell as="th">Action</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
       {todos.map((todo, index) => (
-        <div key={todo.id ? todo.id : index} style={styles.todo}>
-          <p style={styles.todoName}>{todo.name}</p>
-          <p style={styles.todoDescription}>{todo.description}</p>
-        </div>
+            <TableRow key={todo.id ? todo.id : index} style={styles.todo}>
+            <TableCell>{todo.name}</TableCell>
+            <TableCell>{todo.description}</TableCell>
+            <TableCell>{todo.description}</TableCell>
+            </TableRow>
       ))}
+  </TableBody>
+</Table>
+  
+  
+      
+  </Card>
+  <Card
+    columnStart="2"
+    columnEnd="-1"
+    textAlign={"right"}
+  >
+    <Button onClick={signOut} color={"red.60"}>Sign out</Button> 
+  </Card>
+</Grid>
     </div>
   );
 };
 
 const styles = {
   container: {
-    width: 400,
+    width: "100%",
     margin: "0 auto",
     display: "flex",
     flexDirection: "column",

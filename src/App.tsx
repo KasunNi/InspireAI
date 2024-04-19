@@ -60,21 +60,13 @@ const App: React.FC<AppProps> = ({ signOut, user }) => {
   }
 
   return (
-
-
     <Routes>
-
 <Route path="/" element={ <Home></Home> }  />
-        
     {/* Protected route that requires authentication */}
     <Route path="/todos" element={ <Todos></Todos> }  />
   {/* Redirect to home if route not found */}
-
 </Routes>
-
-
-   
-  );
+ );
 };
 
 const styles = {
