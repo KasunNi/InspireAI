@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { generateClient } from "aws-amplify/api";
 
 import { createTodo } from "./graphql/mutations";
+import { updateTodo } from "./graphql/mutations";
+import { deleteTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
-import { type CreateTodoInput, type Todo } from "./API";
+import { type CreateTodoInput, UpdateTodoInput, DeleteTodoInput, type Todo } from "./API";
 
 import { withAuthenticator, Button, Heading, Breadcrumbs, Card, Grid, Flex, ThemeProvider, View, Image, Text, createTheme, useTheme, Table, TableBody, TableCell, TableHead, TableRow } from "@aws-amplify/ui-react";
 import { type AuthUser } from "aws-amplify/auth";
@@ -14,6 +16,9 @@ import "@aws-amplify/ui-react/styles.css";
 import cover from './assets/cover.jpg';
 
 const initialState: CreateTodoInput = { name: "", description: "" };
+const initialStateUpdate: UpdateTodoInput = { id: "", name: "", description: "" };
+const initialStateDelete: DeleteTodoInput = { id: "" };
+
 const client = generateClient();
 
 type AppProps = {
@@ -44,6 +49,15 @@ const theme = createTheme({
 const Todos: React.FC<AppProps> = ({ signOut, user }) => {
   const [formState, setFormState] = useState<CreateTodoInput>(initialState);
   const [todos, setTodos] = useState<Todo[] | CreateTodoInput[]>([]);
+
+  const [formStateUpdate, setFormStateUpdate] = useState<UpdateTodoInput>(initialStateUpdate);
+  const [todosUpdate, setTodosUpdate] = useState<Todo[] | UpdateTodoInput[]>([]);
+
+  const [editTodoId, setEditTodoId] = useState<string | null>(null);
+  const [deleteTodoId, setDeleteTodoId] = useState<string | null>(null);
+
+  
+
 
   useEffect(() => {
     fetchTodos();
@@ -77,6 +91,64 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
       console.log("error creating todo:", err);
     }
   }
+
+  async function editTodo() {
+    try {
+      if (!formStateUpdate.id || !formStateUpdate.name || !formStateUpdate.description) return;
+      const todo = { ...formStateUpdate };
+      setTodosUpdate([...todosUpdate, todo]);
+      setFormStateUpdate(initialStateUpdate);
+      await client.graphql({
+        query: updateTodo,
+        variables: {
+          input: todo,
+        },
+      });
+      fetchTodos(); // Refresh todos after update
+      setEditTodoId(null);
+      
+    } catch (err) {
+      console.log("error updating todo:", err);
+    }
+  }
+
+ 
+
+
+  const handleEdit = (todoId: any) => {
+    const selectedTodo = todos.find((todo) => todo.id === todoId);
+    if (selectedTodo) {
+      setFormStateUpdate({ id: selectedTodo.id || "", name: selectedTodo.name, description: selectedTodo.description });
+      setEditTodoId(todoId);
+    }
+  };
+
+  const resetFeildsEdit= (todoId: any) => {
+    setEditTodoId(null);
+  }
+  const resetFeildsDelete= (todoId: any) => {
+    setDeleteTodoId(null);
+  }
+
+  const handleDelete = (todoId: string) => {
+    setDeleteTodoId(todoId);
+  };
+
+  async function confirmDeleteTodo() {
+    try {
+      await client.graphql({
+        query: deleteTodo, // Replace 'deleteTodo' with your actual mutation
+        variables: { input: { id: deleteTodoId || "" } },
+      });
+      setDeleteTodoId(null);
+      fetchTodos(); // Refresh todos after delete
+    } catch (err) {
+      console.log("error deleting todo", err);
+    }
+  };
+
+
+  
 
   const { tokens } = useTheme();
 
@@ -254,11 +326,68 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
             <TableRow key={todo.id ? todo.id : index} style={styles.todo}>
             <TableCell>{todo.name}</TableCell>
             <TableCell>{todo.description}</TableCell>
-            <TableCell>{todo.description}</TableCell>
+            <TableCell>
+                {editTodoId === todo.id  ? (
+                 
+                  <>
+                    <input
+                    style={{
+                      border: "none",
+                      backgroundColor: "#ddd",
+                      marginBottom: 10,
+                      padding: 8,
+                      fontSize: 18,
+                    }}
+                      type="text"
+                      placeholder={todo.name}
+                      value={formStateUpdate.name || ""}
+                      onChange={(e) => setFormStateUpdate({ ...formStateUpdate, name: e.target.value })}
+                    /><br></br>
+                    <input
+                    style={{
+                      border: "none",
+                      backgroundColor: "#ddd",
+                      marginBottom: 10,
+                      padding: 8,
+                      fontSize: 18,
+                    }}
+                      type="text"
+                      placeholder={todo.description || ""}
+                      value={formStateUpdate.description || ""}
+                      onChange={(e) => setFormStateUpdate({ ...formStateUpdate, description: e.target.value })}
+                    /><br></br>
+                    
+                    <Button onClick={resetFeildsEdit} marginLeft={90} marginRight={10} color={""}>Cancel</Button>
+                    <Button onClick={editTodo} color={"green.60"}>Save</Button><br></br>
+                  </>
+                ) : (
+                  <>
+                    <Button onClick={() => handleEdit(todo.id)}  marginRight={10}>Edit</Button>
+                    {deleteTodoId === todo.id ? (
+                  <>
+                    
+                    <br></br>
+                    <p style={{color:"tomato"}}>Are you sure you want to delete this?</p>
+                    <Button onClick={resetFeildsDelete} marginLeft={90} marginRight={10} color={""}>Cancel</Button>
+                    <Button onClick={confirmDeleteTodo} color={"red.60"}>Delete</Button><br></br>
+                  </>
+                ) : (
+                  <>
+                    <Button color={"red.60"} onClick={() => handleDelete(todo.id || "")}>Delete</Button>
+                  </>
+                )}
+                  </>
+                )}
+
+
+              </TableCell>
             </TableRow>
       ))}
   </TableBody>
 </Table>
+
+
+
   
   
       
