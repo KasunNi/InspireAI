@@ -10,9 +10,6 @@ import { withAuthenticator, Button, Heading, Breadcrumbs } from "@aws-amplify/ui
 import { type AuthUser } from "aws-amplify/auth";
 import { type UseAuthenticator } from "@aws-amplify/ui-react-core";
 import "@aws-amplify/ui-react/styles.css";
-import { Route, Routes } from "react-router-dom";
-import Todos from "./Todos";
-import Home from "./Home";
 
 const initialState: CreateTodoInput = { name: "", description: "" };
 const client = generateClient();
@@ -22,7 +19,7 @@ type AppProps = {
   user?: AuthUser;
 };
 
-const App: React.FC<AppProps> = ({ signOut, user }) => {
+const Todos: React.FC<AppProps> = ({ signOut, user }) => {
   const [formState, setFormState] = useState<CreateTodoInput>(initialState);
   const [todos, setTodos] = useState<Todo[] | CreateTodoInput[]>([]);
 
@@ -60,20 +57,53 @@ const App: React.FC<AppProps> = ({ signOut, user }) => {
   }
 
   return (
+    <div style={styles.container}>
+      <Heading level={1}>Hello {user?.username}</Heading>
+      <Button onClick={signOut}>Sign out</Button>
 
-
-    <Routes>
-
-<Route path="/" element={ <Home></Home> }  />
-        
-    {/* Protected route that requires authentication */}
-    <Route path="/todos" element={ <Todos></Todos> }  />
-  {/* Redirect to home if route not found */}
-
-</Routes>
-
-
-   
+      <Breadcrumbs
+      items={[
+        {
+          href: '/',
+          label: 'Home',
+        },
+        {
+          href: '/todos',
+          label: 'Todos',
+        },
+        {
+          label: 'Breadcrumbs',
+        },
+      ]}
+    />
+      
+      <h2>Amplify Todos</h2>
+      <input
+        onChange={(event) =>
+          setFormState({ ...formState, name: event.target.value })
+        }
+        style={styles.input}
+        value={formState.name}
+        placeholder="Name"
+      />
+      <input
+        onChange={(event) =>
+          setFormState({ ...formState, description: event.target.value })
+        }
+        style={styles.input}
+        value={formState.description as string}
+        placeholder="Description"
+      />
+      <button style={styles.button} onClick={addTodo}>
+        Create Todo
+      </button>
+      {todos.map((todo, index) => (
+        <div key={todo.id ? todo.id : index} style={styles.todo}>
+          <p style={styles.todoName}>{todo.name}</p>
+          <p style={styles.todoDescription}>{todo.description}</p>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -105,4 +135,4 @@ const styles = {
   },
 } as const;
 
-export default withAuthenticator(App);
+export default withAuthenticator(Todos);
