@@ -152,24 +152,62 @@ const Home: React.FC<AppProps> = ({ signOut, user }) => {
             alignItems="flex-start"
             gap={tokens.space.xs}
           >
-            <Flex>
+            {/*<Flex>
               <Badge size="small" variation="info">
                 Plus
               </Badge>
               <Badge size="small" variation="success">
                 Verified
               </Badge>
-            </Flex>
+            </Flex>*/}
 
             <Heading level={5}>
-              New Zealand White Water Outdoor Adventure
+              Inspirational Quotes
             </Heading>
 
             <Text as="span">
-              Join us on this beautiful outdoor adventure through the glittering
-              rivers through the snowy peaks on New Zealand.
+              Join with us to view Inspirational Quotes.
             </Text>
-            <Button variation="primary">Book it</Button>
+            <Button variation="primary">View Now</Button>
+          </Flex>
+        </Flex>
+      </Card>
+      </View>
+
+
+      <View
+      backgroundColor={tokens.colors.background.secondary}
+      padding={tokens.space.medium}
+    >
+      <Card>
+        <Flex direction="row" alignItems="flex-start">
+          <Image
+            alt="Road to milford sound"
+            src={cover}
+            width="33%"
+          />
+          <Flex
+            direction="column"
+            alignItems="flex-start"
+            gap={tokens.space.xs}
+          >
+            {/*<Flex>
+              <Badge size="small" variation="info">
+                Plus
+              </Badge>
+              <Badge size="small" variation="success">
+                Verified
+              </Badge>
+            </Flex>*/}
+
+            <Heading level={5}>
+              Profile
+            </Heading>
+
+            <Text as="span">
+              Keep update your profile to recieving the ideal Quotes as you need.
+            </Text>
+            <Button variation="primary">See My profile</Button>
           </Flex>
         </Flex>
       </Card>
