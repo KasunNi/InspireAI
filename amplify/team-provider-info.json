@@ -17,6 +17,9 @@
       },
       "api": {
         "inspireai": {}
+      },
+      "function": {
+        "inspireailambdafunctionquotes": {}
       }
     }
   }
