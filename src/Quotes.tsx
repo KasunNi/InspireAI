@@ -3,19 +3,22 @@ import { useEffect, useState } from "react";
 import { generateClient } from "aws-amplify/api";
 
 import { createTodo } from "./graphql/mutations";
+import { updateTodo } from "./graphql/mutations";
+import { deleteTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
-import { type CreateTodoInput, type Todo } from "./API";
+import { type CreateTodoInput, UpdateTodoInput, DeleteTodoInput, type Todo } from "./API";
 
-import { withAuthenticator, Button, Heading, Breadcrumbs, Card, Grid, createTheme, ThemeProvider, Flex, useTheme, Badge, View, Image, Text } from "@aws-amplify/ui-react";
+import { withAuthenticator, Button, Heading, Breadcrumbs, Card, Grid, Flex, ThemeProvider, View, Image, Text, createTheme, useTheme, Table, TableBody, TableCell, TableHead, TableRow } from "@aws-amplify/ui-react";
 import { type AuthUser } from "aws-amplify/auth";
 import { type UseAuthenticator } from "@aws-amplify/ui-react-core";
 import "@aws-amplify/ui-react/styles.css";
-import { Route, Routes } from "react-router-dom";
-import Todos from "./Todos";
 
 import cover from './assets/cover.jpg';
 
 const initialState: CreateTodoInput = { name: "", description: "" };
+const initialStateUpdate: UpdateTodoInput = { id: "", name: "", description: "" };
+const initialStateDelete: DeleteTodoInput = { id: "" };
+
 const client = generateClient();
 
 type AppProps = {
@@ -24,73 +27,56 @@ type AppProps = {
 };
 
 const theme = createTheme({
-  name: 'breadcrumbs-theme',
-  tokens: {
-    components: {
-      breadcrumbs: {
-        separator: {
-          color: '{colors.secondary.20}',
-          fontSize: '{fontSizes.xl}',
-          paddingInline: '{space.medium}',
-        },
-        link: {
-          current: {
-            color: '{colors.secondary.80}',
+    name: 'breadcrumbs-theme',
+    tokens: {
+      components: {
+        breadcrumbs: {
+          separator: {
+            color: '{colors.secondary.20}',
+            fontSize: '{fontSizes.xl}',
+            paddingInline: '{space.medium}',
+          },
+          link: {
+            current: {
+              color: '{colors.secondary.80}',
+            },
           },
         },
       },
     },
-  },
-});
+  });
 
-const Home: React.FC<AppProps> = ({ signOut, user }) => {
-  const [formState, setFormState] = useState<CreateTodoInput>(initialState);
-  const [todos, setTodos] = useState<Todo[] | CreateTodoInput[]>([]);
+const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
+  
+  
+
 
   useEffect(() => {
-    fetchTodos();
+    
   }, []);
 
-  async function fetchTodos() {
-    try {
-      const todoData = await client.graphql({
-        query: listTodos,
-      });
-      const todos = todoData.data.listTodos.items;
-      setTodos(todos);
-    } catch (err) {
-      console.log("error fetching todos");
-    }
-  }
+  
 
-  async function addTodo() {
-    try {
-      if (!formState.name || !formState.description) return;
-      const todo = { ...formState };
-      setTodos([...todos, todo]);
-      setFormState(initialState);
-      await client.graphql({
-        query: createTodo,
-        variables: {
-          input: todo,
-        },
-      });
-    } catch (err) {
-      console.log("error creating todo:", err);
-    }
-  }
+ 
 
+ 
+
+
+  
 
   const { tokens } = useTheme();
 
-  
   return (
-
-
-   
-
-
     <div style={styles.container}>
+     
+
+
+
+
+
+
+
+
 
 <Grid
   columnGap="0.5rem"
@@ -137,8 +123,8 @@ const Home: React.FC<AppProps> = ({ signOut, user }) => {
     columnStart="1"
     columnEnd="2"
   >
-    <Heading level={1} color={"purple.60"}>Hello {user?.username}</Heading>
-      <h2>Welcome to InspireAI</h2>
+    <Heading level={1} color={"purple.60"}>Quotes of InspireAI</Heading>
+      {/*<h2>Welcome to InspireAI</h2>*/}
 
       <View
       backgroundColor={tokens.colors.background.secondary}
@@ -221,7 +207,31 @@ const Home: React.FC<AppProps> = ({ signOut, user }) => {
     columnStart="2"
     columnEnd="-1"
   >
-    <img src={cover} width={"100%"} />
+     <h2>Microservices Quotes</h2>
+      
+      
+      <Button variation="primary" >Create Quote</Button>
+
+      <h2>All Quotes</h2>
+
+<Table
+  caption=""
+  highlightOnHover={false}>
+  <TableHead>
+    <TableRow>
+      <TableCell as="th">Title</TableCell>
+      <TableCell as="th">Quote</TableCell>
+      <TableCell as="th">Action</TableCell>
+    </TableRow>
+  </TableHead>
+  
+</Table>
+
+
+
+  
+  
+      
   </Card>
   <Card
     columnStart="2"
@@ -231,9 +241,6 @@ const Home: React.FC<AppProps> = ({ signOut, user }) => {
     <Button onClick={signOut} color={"red.60"}>Sign out</Button> 
   </Card>
 </Grid>
-
-
-      
     </div>
   );
 };
@@ -266,4 +273,4 @@ const styles = {
   },
 } as const;
 
-export default withAuthenticator(Home);
+export default withAuthenticator(Quotes);

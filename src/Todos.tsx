@@ -187,6 +187,10 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
           label: 'Todos',
         },
         {
+          href: '/quotes',
+          label: 'Quotes',
+        },
+        {
           label: '',
         },
       ]}

@@ -13,6 +13,7 @@ import "@aws-amplify/ui-react/styles.css";
 import { Route, Routes } from "react-router-dom";
 import Todos from "./Todos";
 import Home from "./Home";
+import Quotes from "./Quotes";
 
 const initialState: CreateTodoInput = { name: "", description: "" };
 const client = generateClient();
@@ -64,6 +65,7 @@ const App: React.FC<AppProps> = ({ signOut, user }) => {
 <Route path="/" element={ <Home></Home> }  />
     {/* Protected route that requires authentication */}
     <Route path="/todos" element={ <Todos></Todos> }  />
+    <Route path="/quotes" element={ <Quotes></Quotes> }  />
   {/* Redirect to home if route not found */}
 </Routes>
  );
