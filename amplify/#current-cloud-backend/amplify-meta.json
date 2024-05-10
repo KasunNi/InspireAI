@@ -22,7 +22,9 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 7,
+              "apiKeyExpirationDate": "2024-05-17T13:51:05.909Z",
+              "description": ""
             }
           },
           "additionalAuthenticationProviders": []
@@ -35,8 +37,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiinspireai"
       },
-      "lastPushTimeStamp": "2024-04-19T04:51:28.176Z",
-      "lastPushDirHash": "Je9r0O4kC3noFgaJN7EPsV9C6UU="
+      "lastPushTimeStamp": "2024-05-10T14:42:35.427Z",
+      "lastPushDirHash": "KHrsVBNB4kZhcOAq+d5pLyo+UbE="
     }
   },
   "auth": {
@@ -67,7 +69,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/auth/inspireaie3ffd3a8-cloudformation-template.json",
         "logicalId": "authinspireaie3ffd3a8"
       },
-      "lastPushTimeStamp": "2024-04-19T04:51:28.176Z",
+      "lastPushTimeStamp": "2024-05-10T14:42:27.886Z",
       "output": {
         "UserPoolId": "us-east-2_WsX0ZW4x2",
         "AppClientIDWeb": "11iu4l3t5tj7n16f7qjok3a5i7",
@@ -78,6 +80,21 @@
         "UserPoolName": "inspireaie3ffd3a8_userpool_e3ffd3a8"
       },
       "lastPushDirHash": "8hDu/3RO1xbgeTAmi5Cg85CEOa0="
+    }
+  },
+  "function": {},
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushTimeStamp": "2024-05-10T14:42:35.427Z",
+      "output": {},
+      "lastPushDirHash": "saKRK0d70urSfO5RNOvrzE0K1qI="
     }
   }
 }

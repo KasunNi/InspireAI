@@ -17,20 +17,6 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
-    },
-    "inspireaiquoteapi": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "inspireailambdafunctionquotes"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
     }
   },
   "auth": {
@@ -59,11 +45,30 @@
       "service": "Cognito"
     }
   },
-  "function": {
-    "inspireailambdafunctionquotes": {
-      "build": true,
+  "function": {},
+  "hosting": {
+    "amplifyhosting": {
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "amplifyhosting",
+      "type": "manual"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
     }
   }
 }

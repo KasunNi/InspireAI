@@ -37,22 +37,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiinspireai"
       },
-      "lastPushTimeStamp": "2024-05-10T13:51:10.760Z",
-      "lastPushDirHash": "Je9r0O4kC3noFgaJN7EPsV9C6UU="
-    },
-    "inspireaiquoteapi": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "inspireailambdafunctionquotes",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
+      "lastPushTimeStamp": "2024-05-10T14:43:57.282Z",
+      "lastPushDirHash": "KHrsVBNB4kZhcOAq+d5pLyo+UbE="
     }
   },
   "auth": {
@@ -83,7 +69,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/auth/inspireaie3ffd3a8-cloudformation-template.json",
         "logicalId": "authinspireaie3ffd3a8"
       },
-      "lastPushTimeStamp": "2024-04-26T05:51:40.291Z",
+      "lastPushTimeStamp": "2024-05-10T14:43:57.285Z",
       "output": {
         "UserPoolId": "us-east-2_WsX0ZW4x2",
         "AppClientIDWeb": "11iu4l3t5tj7n16f7qjok3a5i7",
@@ -96,11 +82,19 @@
       "lastPushDirHash": "8hDu/3RO1xbgeTAmi5Cg85CEOa0="
     }
   },
-  "function": {
-    "inspireailambdafunctionquotes": {
-      "build": true,
+  "function": {},
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "type": "manual",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushTimeStamp": "2024-05-10T14:43:57.287Z",
+      "output": {},
+      "lastPushDirHash": "saKRK0d70urSfO5RNOvrzE0K1qI="
     }
   }
 }

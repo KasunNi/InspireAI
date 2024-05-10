@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-inspireai-dev-84c67-unauthRole",
       "StackName": "amplify-inspireai-dev-84c67",
       "StackId": "arn:aws:cloudformation:us-east-2:436302720085:stack/amplify-inspireai-dev-84c67/50d51160-fd61-11ee-878f-026d6887bb6b",
-      "AmplifyAppId": "dw51o3pfingmk"
+      "AmplifyAppId": "dw51o3pfingmk",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -18,8 +19,11 @@
       "api": {
         "inspireai": {}
       },
-      "function": {
-        "inspireailambdafunctionquotes": {}
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dw51o3pfingmk",
+          "type": "manual"
+        }
       }
     }
   }
