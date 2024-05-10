@@ -54,7 +54,7 @@ const theme = createTheme({
     },
   });
 
-const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
+const Profile: React.FC<AppProps> = ({ signOut, user }) => {
 
   const [formState, setFormState] = useState(initialState);
   
@@ -151,7 +151,7 @@ const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
     columnStart="1"
     columnEnd="2"
   >
-    <Heading level={1} color={"purple.60"}>Quotes of InspireAI</Heading>
+    <Heading level={1} color={"purple.60"}>Manage of Profile</Heading>
       {/*<h2>Welcome to InspireAI</h2>*/}
 
       <View
@@ -180,7 +180,7 @@ const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
             </Flex>*/}
 
             <Heading level={5}>
-              Inspirational Quotes
+              Manage My Profile
             </Heading>
 
             <Text as="span">
@@ -219,7 +219,7 @@ const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
             </Flex>*/}
 
             <Heading level={5}>
-              Profile
+              Profile Management
             </Heading>
 
             <Text as="span">
@@ -235,29 +235,9 @@ const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
     columnStart="2"
     columnEnd="-1"
   >
-     <h2>Microservices Quotes</h2>
+    
 
-     <input
-        onChange={(event) =>
-          setFormState({ ...formState, name: event.target.value })
-        }
-        style={styles.input}
-        value={formState.name}
-        placeholder="Name"
-      /><br></br>
-      <input
-        onChange={(event) =>
-          setFormState({ ...formState, description: event.target.value })
-        }
-        style={styles.input}
-        value={formState.description as string}
-        placeholder="Description"
-      /><br></br>
-      
-      
-      <Button variation="primary" >Create Quote</Button>
-
-      <h2>All Quotes</h2>
+      <h2>My Profile Data</h2>
 
 <Table
   caption=""
@@ -318,4 +298,4 @@ const styles = {
   },
 } as const;
 
-export default withAuthenticator(Quotes);
+export default withAuthenticator(Profile);
