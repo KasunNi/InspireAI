@@ -1,22 +1,18 @@
-import { useEffect, useState } from "react";
 
-import { generateClient } from "aws-amplify/api";
 
-import { createTodo } from "./graphql/mutations";
-import { listTodos } from "./graphql/queries";
-import { type CreateTodoInput, type Todo } from "./API";
 
-import { withAuthenticator, Button, Heading, Breadcrumbs, Card, Grid, createTheme, ThemeProvider, Flex, useTheme, Badge, View, Image, Text } from "@aws-amplify/ui-react";
+
+
+
+import { withAuthenticator, Button, Heading, Breadcrumbs, Card, Grid, createTheme, ThemeProvider, Flex, useTheme, View, Image, Text } from "@aws-amplify/ui-react";
 import { type AuthUser } from "aws-amplify/auth";
 import { type UseAuthenticator } from "@aws-amplify/ui-react-core";
 import "@aws-amplify/ui-react/styles.css";
-import { Route, Routes } from "react-router-dom";
-import Todos from "./Todos";
+
 
 import cover from './assets/cover.jpg';
 
-const initialState: CreateTodoInput = { name: "", description: "" };
-const client = generateClient();
+
 
 type AppProps = {
   signOut?: UseAuthenticator["signOut"]; //() => void;
@@ -44,42 +40,11 @@ const theme = createTheme({
 });
 
 const Home: React.FC<AppProps> = ({ signOut, user }) => {
-  const [formState, setFormState] = useState<CreateTodoInput>(initialState);
-  const [todos, setTodos] = useState<Todo[] | CreateTodoInput[]>([]);
 
-  useEffect(() => {
-    fetchTodos();
-  }, []);
 
-  async function fetchTodos() {
-    try {
-      const todoData = await client.graphql({
-        query: listTodos,
-      });
-      const todos = todoData.data.listTodos.items;
-      setTodos(todos);
-    } catch (err) {
-      console.log("error fetching todos");
-    }
-  }
+  
 
-  async function addTodo() {
-    try {
-      if (!formState.name || !formState.description) return;
-      const todo = { ...formState };
-      setTodos([...todos, todo]);
-      setFormState(initialState);
-      await client.graphql({
-        query: createTodo,
-        variables: {
-          input: todo,
-        },
-      });
-    } catch (err) {
-      console.log("error creating todo:", err);
-    }
-  }
-
+ 
 
   const { tokens } = useTheme();
 

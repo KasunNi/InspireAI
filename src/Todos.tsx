@@ -19,6 +19,8 @@ const initialState: CreateTodoInput = { name: "", description: "" };
 const initialStateUpdate: UpdateTodoInput = { id: "", name: "", description: "" };
 const initialStateDelete: DeleteTodoInput = { id: "" };
 
+initialStateDelete
+
 const client = generateClient();
 
 type AppProps = {
@@ -46,7 +48,7 @@ const theme = createTheme({
     },
   });
 
-const Todos: React.FC<AppProps> = ({ signOut, user }) => {
+const Todos: React.FC<AppProps> = ({ signOut }) => {
   const [formState, setFormState] = useState<CreateTodoInput>(initialState);
   const [todos, setTodos] = useState<Todo[] | CreateTodoInput[]>([]);
 
@@ -123,10 +125,10 @@ const Todos: React.FC<AppProps> = ({ signOut, user }) => {
     }
   };
 
-  const resetFeildsEdit= (todoId: any) => {
+  const resetFeildsEdit= () => {
     setEditTodoId(null);
   }
-  const resetFeildsDelete= (todoId: any) => {
+  const resetFeildsDelete= () => {
     setDeleteTodoId(null);
   }
 
