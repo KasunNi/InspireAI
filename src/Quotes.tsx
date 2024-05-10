@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react";
 
-import { generateClient } from "aws-amplify/api";
 
-import { createTodo } from "./graphql/mutations";
-import { updateTodo } from "./graphql/mutations";
-import { deleteTodo } from "./graphql/mutations";
-import { listTodos } from "./graphql/queries";
-import { type CreateTodoInput, UpdateTodoInput, DeleteTodoInput, type Todo } from "./API";
+import { type CreateTodoInput } from "./API";
 
 import { withAuthenticator, Button, Heading, Breadcrumbs, Card, Grid, Flex, ThemeProvider, View, Image, Text, createTheme, useTheme, Table, TableBody, TableCell, TableHead, TableRow } from "@aws-amplify/ui-react";
 import { type AuthUser } from "aws-amplify/auth";
@@ -24,10 +19,9 @@ interface IData {
 }
 
 const initialState: CreateTodoInput = { name: "", description: "" };
-const initialStateUpdate: UpdateTodoInput = { id: "", name: "", description: "" };
-const initialStateDelete: DeleteTodoInput = { id: "" };
 
-const client = generateClient();
+
+
 
 type AppProps = {
   signOut?: UseAuthenticator["signOut"]; //() => void;
@@ -54,7 +48,7 @@ const theme = createTheme({
     },
   });
 
-const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
+const Quotes: React.FC<AppProps> = ({ signOut }) => {
 
   const [formState, setFormState] = useState(initialState);
   
@@ -70,7 +64,7 @@ const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
       try {
         const response = await axios.get<IData[]>('http://3.17.147.90:8081/quotes');
         setData(response.data);
-        console.log(response.data)
+        console.log(data)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -269,6 +263,7 @@ const Quotes: React.FC<AppProps> = ({ signOut, user }) => {
       <TableCell as="th">Action</TableCell>
     </TableRow>
   </TableHead>
+  <TableBody></TableBody>
   
 </Table>
 
