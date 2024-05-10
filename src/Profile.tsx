@@ -151,7 +151,7 @@ const Profile: React.FC<AppProps> = ({ signOut, user }) => {
     columnStart="1"
     columnEnd="2"
   >
-    <Heading level={1} color={"purple.60"}>Manage of Profile</Heading>
+    <Heading level={1} color={"purple.60"}>Manage Profile</Heading>
       {/*<h2>Welcome to InspireAI</h2>*/}
 
       <View
@@ -244,11 +244,24 @@ const Profile: React.FC<AppProps> = ({ signOut, user }) => {
   highlightOnHover={false}>
   <TableHead>
     <TableRow>
-      <TableCell as="th">Title</TableCell>
-      <TableCell as="th">Quote</TableCell>
+      <TableCell as="th">User ID</TableCell>
+      <TableCell as="th">Username</TableCell>
       <TableCell as="th">Action</TableCell>
     </TableRow>
   </TableHead>
+  <TableBody>
+      
+            <TableRow >
+            <TableCell>{user?.userId}</TableCell>
+            <TableCell>{user?.username}</TableCell>
+            <TableCell>
+
+            <Button  color={"red.30"}>Modify</Button> 
+            </TableCell>
+            
+            </TableRow>
+     
+  </TableBody>
   
 </Table>
 

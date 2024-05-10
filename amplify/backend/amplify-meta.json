@@ -22,7 +22,9 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 7,
+              "apiKeyExpirationDate": "2024-05-17T13:51:05.909Z",
+              "description": ""
             }
           },
           "additionalAuthenticationProviders": []
@@ -35,7 +37,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-inspireai-dev-84c67-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apiinspireai"
       },
-      "lastPushTimeStamp": "2024-04-26T05:51:40.289Z",
+      "lastPushTimeStamp": "2024-05-10T13:51:10.760Z",
       "lastPushDirHash": "Je9r0O4kC3noFgaJN7EPsV9C6UU="
     },
     "inspireaiquoteapi": {

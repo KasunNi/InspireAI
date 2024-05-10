@@ -119,6 +119,10 @@ const Home: React.FC<AppProps> = ({ signOut, user }) => {
           label: 'Quotes',
         },
         {
+          href: '/profile',
+          label: 'Profile',
+        },
+        {
           label: '',
         },
       ]}
